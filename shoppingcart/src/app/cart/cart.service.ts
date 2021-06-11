@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { cart } from './cart';
 
 
 @Injectable({
@@ -20,7 +18,7 @@ clearCart() {
       return this.items;
 }
   constructor(private http: HttpClient) {}
-  postCart(car: cart) {
-    return this.http.post(this.baseUrl, car);
+  cartDetail(cart) {
+    return this.http.post<any>(this.baseUrl, cart);
       }
 }

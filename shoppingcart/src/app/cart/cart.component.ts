@@ -3,7 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/auth.service';
 import { CartService } from 'src/app/cart/cart.service';
-import { cart } from './cart';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -21,15 +21,13 @@ export class CartComponent implements OnInit {
   name: '',
   address: '',
 });
-  onSubmit(getCartDetails): void {
-    // Process checkout data here
-    this.items = this.cartService.clearCart();
-    console.warn('Your order has been submitted', this.checkoutForm.value);
-    this.checkoutForm.reset();
-    this.cartService.postCart(getCartDetails).subscribe((res) => {
-      console.table(getCartDetails);
-     });
-  }
+
+getCartDetail = {
+  prodId: '',
+  name: ' ',
+  qnt: '',
+  amt: ''
+ };
   ngOnInit(): void {
     this.CartDetails();
     this.loadCart();
@@ -154,5 +152,14 @@ cartValue.length;
 this.auth.cartSubject.next
 (this.cartNumber);
 }
+cartDetail() {
+  console.table(this.getCartDetails);
+  this.items = this.cartService.clearCart();
+  console.warn('Your order has been submitted', this.checkoutForm.value);
+  //   this.checkoutForm.reset();
+  this.cartService.cartDetail(this.getCartDetail)
+  .subscribe(res => console.log(res),
+  err => console.log(err));
+ }
 
 }
